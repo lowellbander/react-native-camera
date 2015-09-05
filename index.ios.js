@@ -1,6 +1,7 @@
 var React = require('react-native');
 var {
   AppRegistry,
+  CameraRoll,
   StyleSheet,
   Text,
   View,
@@ -37,6 +38,9 @@ var AwesomeProject = React.createClass({
         <TouchableHighlight onPress={this._takePicture}>
           <Text>Take Picture</Text>
         </TouchableHighlight>
+        <TouchableHighlight onPress={this._choosePhoto}>
+          <Text>Choose Photo</Text>
+        </TouchableHighlight>
       </Camera>
     );
   },
@@ -53,7 +57,19 @@ var AwesomeProject = React.createClass({
     this.refs.cam.capture(function(err, data) {
       console.log(err, data);
     });
-  }
+  },
+  _choosePhoto() {
+    console.log('choosing photo');
+    CameraRoll.getPhotos(
+      {first: 1},
+      (data) => {
+        console.log('data: ', data);
+      },
+      (error) => {
+        console.warn('error: ', error);
+      }
+    );
+  },
 });
 
 
